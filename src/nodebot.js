@@ -107,7 +107,7 @@ bot.on('message', (msg) => {
 function handleMusicSelection(chatId) {
    // Удаляем предыдущее сообщение каталога
    if (catalogMessageId) {
-      bot.deleteMessage(chatId, catalogMessageId).catch(error => console.log('Ошибка при удалении сообщения каталога:', error.message));
+      // bot.deleteMessage(chatId, catalogMessageId).catch(error => console.log('Ошибка при удалении сообщения каталога:', error.message));
       catalogMessageId = null;
    }
 

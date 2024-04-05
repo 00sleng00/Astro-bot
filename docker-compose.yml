@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  node:
+    image: node:21-alpine
+    container_name: "${COMPOSE_PROJECT_NAME}"
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    ports:
+      - "${PORT}:3000"
+    command: sh -c "npm ci && npm start"
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus:   "1"
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+    restart: unless-stopped
+    networks:
+      - default

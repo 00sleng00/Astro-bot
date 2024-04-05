@@ -1,0 +1,19 @@
+name: Deploy prod
+
+on: [push]
+
+jobs:
+  pull:
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Connect to server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/xakki/astro-bot
+            git checkout main
+            git pull
+            make up-force
