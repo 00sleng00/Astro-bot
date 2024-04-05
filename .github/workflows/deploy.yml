@@ -1,6 +1,6 @@
 name: Deploy prod
 
-on: [push]
+on: workflow_dispatch
 
 jobs:
   pull:
