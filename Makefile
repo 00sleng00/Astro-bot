@@ -4,6 +4,7 @@ SHELL = /bin/bash
 dc:= docker compose -f docker-compose.yml
 
 deploy: git-up up-force
+	@echo '🚀 Astro-bot success deploy'
 
 git-up:
 	@git checkout main
