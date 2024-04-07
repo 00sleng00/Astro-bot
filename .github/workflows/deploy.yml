@@ -12,7 +12,7 @@ jobs:
           resp=$(curl -X POST \
             --url ${{secrets.URL}} \
             -H 'Content-type: application/json' \
-            -d '{"project": "astro-bot", "token": "{{secrets.TOKEN}}"}')
+            -d '{"project": "astro-bot", "token": "${{secrets.TOKEN}}"}')
           echo OUT_RESP=$resp >> $GITHUB_OUTPUT
       - name: Check output var
         run: |
