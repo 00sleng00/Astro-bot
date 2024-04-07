@@ -7,8 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run deploy
+        id: api
         run: |
-          curl -s --request POST \
-          --url ${{secrets.URL}} \
-          --header 'content-type: application/json' \
-          --data '{"project": "astro-bot", "token": "{{secrets.TOKEN}}"}' >> $GITHUB_OUTPUT
+          resp=$(curl -X POST \
+            --url ${{secrets.URL}} \
+            -H 'Content-type: application/json' \
+            -d '{"project": "astro-bot", "token": "{{secrets.TOKEN}}"}')
+          echo OUT_RESP=$resp >> $GITHUB_OUTPUT
+      - name: Check output var
+        run: |
+          echo -e "${{steps.api.outputs.OUT_RESP}}"
