@@ -4,16 +4,11 @@ on: workflow_dispatch
 
 jobs:
   pull:
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
-      - name: Connect to server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd /home/xakki/astro-bot
-            git checkout main
-            git pull
-            make up-force
+      - name: Run deploy
+        run: |
+          curl -s --request POST \
+          --url ${{secrets.URL}} \
+          --header 'content-type: application/json' \
+          --data '{"project": "astro-bot", "token": "{{secrets.TOKEN}}"}' >> $GITHUB_OUTPUT
